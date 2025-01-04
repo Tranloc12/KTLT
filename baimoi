@@ -1,0 +1,96 @@
+#include<iostream>
+#include<string>
+#include<fstream>
+#define MAX 50
+using namespace std;
+
+struct Sach
+{
+	char maSach[50];
+	string tenSach;
+	char tenTacGia[50];
+	double giaBan;
+	int giamGia;
+};
+
+struct DSQS
+{
+	Sach *ds;
+	int n;
+};
+
+void nhap1Sach(Sach &s) {
+	cout << "NHAP THONG TIN\n";
+	cout << "Nhap ID: ";
+	cin >> s.maSach;
+	cout << "nhap ten sach";
+	cin >> s.tenSach;
+	cout << "nhap ten tac gia";
+	cin >> s.tenTacGia;
+	cout << "gia ban";
+	cin >> s.giaBan;
+	cout << "giam gia";
+	cin >> s.giamGia;
+
+}
+void xuat1Sach(const Sach s) {
+	cout << "XUAT THONG TIN\n";
+	cout << "nhap ID" << s.maSach << endl;
+	cout << "nhap ten sach " << s.tenSach << endl;
+	cout << "nhap ten tac gia " << s.tenTacGia << endl;
+	cout << "nhap gia ban" << s.giaBan << endl;
+	cout << "nhap giam gia" << s.giamGia << endl;
+
+
+}
+
+void nhapDsTuFile(DSQS &l)
+{
+	ifstream inFile("Sach.txt");
+	if (inFile.is_open()) {
+		while (inFile) {
+			Sach s;
+
+			inFile.getline(s.maSach, 5, '#');
+			getline(inFile, s.tenSach, '#');
+			inFile.getline(s.tenTacGia, 50, '#');
+			inFile >> s.giaBan;
+			inFile >> s.giamGia;
+
+			pushBackArr(l.ds, l.n, s);
+		}
+
+
+		inFile.close();
+	}
+}
+void pushBackArr(Sach *&a, int &n, const Sach x) {
+	if (a == NULL) {
+		n = 1;
+		a = new Sach[n];
+		a[0] = x;
+	}
+	else {
+		Sach *aPrev = a;
+
+		a = new Sach[n + 1];
+		int j = 0;
+		for (int i = 0; i < n; i++)
+			a[j++] = aPrev[i];
+		a[n++] = x;
+
+		delete[]aPrev;
+		aPrev = NULL;
+	}
+}
+
+
+int main() {
+	DSQS l;
+	
+
+
+
+	return 1;
+
+}
